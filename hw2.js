@@ -155,6 +155,19 @@ const myObservable = new Observable(tacoGenerator)
 
 
 console.log('about my tacos...')
-mySubscription = myObservable.subscribe(myObserver)
+let mySubscription = myObservable.subscribe(myObserver)
 mySubscription.unsubscribe()
 console.log('after subscribe');
+
+burritoGenerator = (subscr) => {
+  setInterval(() => {
+    subscr.next('another burrito jumps!')
+  }, 1000);
+}
+const burritoObserver = new Observable(burritoGenerator)
+let burriotoSubscription = burritoObserver.subscribe({
+  next(burritoAction) { console.log(burritoAction) }
+})
+setTimeout(() => {
+  burriotoSubscription.unsubscribe()
+}, 5001);
