@@ -30,14 +30,23 @@ function favs(item) {
       else if (typeof v[0] == 'object') {
         for (let [key, val] of Object.entries(v[0]))
           printout += `\n  ${key}: ${val}`
-
       }
     }
   }
-
   return printout
 }
 console.log(favs(person3))
+// output:
+// Favorite pizza: Deep Dish, South Side Thin Crust
+// Favorite tacos: Anything not from Taco bell
+// Favorite burgers: Portillos Burgers
+// Favorite ice_cream: Chocolate, Vanilla, Oreo
+// Favorite shakes:
+// oberwise: Chocolate
+// dunkin: Vanilla
+// culvers: All of them
+// mcDonalds: Sham - rock - shake
+// cupids_candies: Chocolate Malt
 
 
 //=======Exercise #2=========//
@@ -78,6 +87,10 @@ ruth.makeOlder(2)
 jo.printInfo()
 ruth.printInfo()
 
+// output:
+// Terrance The Dough Boy is 40 years old
+// Ruth is 23 years old
+
 // Use an arrow to create the printInfo method
 
 // Create another arrow function for the addAge method that takes a single parameter
@@ -102,10 +115,14 @@ let bigWord = (word) => {
 
 async function sendTheWord(word) {
   await bigWord(word)
-    .then((resp => console.log(`Sending '${word}': ${resp}`)))
-    .catch((resp) => console.log(`Rejected: ${resp}`))
+    .then(resp => console.log(`Sending '${word}': ${resp}`))
+    .catch(err => console.log(`Rejected: ${err}`))
 }
 
 sendTheWord('tacos dance')
 sendTheWord('tacos jump')
 sendTheWord('tacos fly')
+// output: 
+// Sending 'tacos dance': Big word
+// Sending 'tacos fly': Small Number
+// Rejected: I don't know what to do with this string
