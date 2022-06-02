@@ -160,7 +160,7 @@ mySubscription.unsubscribe()
 console.log('after subscribe');
 
 burritoGenerator = (subscr) => {
-  setInterval(() => {
+  burritoInterval = setInterval(() => {
     subscr.next('another burrito jumps!')
   }, 1000);
 }
@@ -170,4 +170,8 @@ let burriotoSubscription = burritoObserver.subscribe({
 })
 setTimeout(() => {
   burriotoSubscription.unsubscribe()
+}, 3001);
+
+setTimeout(() => {
+  clearInterval(burritoInterval)
 }, 5001);
