@@ -113,7 +113,7 @@ let bigWord = (word) => {
   })
 }
 
-async function sendTheWord(word) {
+sendTheWord = async (word) => {
   await bigWord(word)
     .then(resp => console.log(`Sending '${word}': ${resp}`))
     .catch(err => console.log(`Rejected: ${err}`))
@@ -126,3 +126,35 @@ sendTheWord('tacos fly')
 // Sending 'tacos dance': Big word
 // Sending 'tacos fly': Small Number
 // Rejected: I don't know what to do with this string
+
+const rx = require('rxjs');
+const Observable = rx.Observable
+
+
+// generator function
+tacoGenerator = (subscr) => {
+  subscr.next('tacos dance')
+  subscr.next('tacos jump')
+  setTimeout(() => {
+    subscr.next('tacos fly')
+  }, 1000);
+}
+
+myObserver = {
+  next(x) {
+    if (x.length > 10) console.log(x, 'is a big word')
+    else if (x.length < 10) console.log(x, 'is a small number');
+    else console.log(x + ": I don't know what to do with this...");
+  },
+  error(err) { console.log('something bad happened: ', err); },
+  complete() { console.log('finished'); }
+}
+
+// observer
+const myObservable = new Observable(tacoGenerator)
+
+
+console.log('about my tacos...')
+mySubscription = myObservable.subscribe(myObserver)
+mySubscription.unsubscribe()
+console.log('after subscribe');
